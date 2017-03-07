@@ -39,11 +39,13 @@
 
 @interface StringEncryption : NSObject
 
-+ (NSString *)encryptString:(NSString *)plainSourceStringToEncrypt;
+#pragma mark 解密字符串
 + (NSString *)decryptString:(NSString *)base64StringToDecrypt;
 + (NSString *)decryptString:(NSString *)base64StringToDecrypt encoding:(NSStringEncoding)encoding;
-+ (NSData *)encrypt:(NSData *)plainText;
 + (NSData *)decrypt:(NSData *)plainText;
+#pragma mark 加密字符串
++ (NSString *)encryptString:(NSString *)plainSourceStringToEncrypt;//加密字符串
++ (NSData *)encrypt:(NSData *)plainText;
 + (NSData *)doCipher:(NSData *)plainText context:(CCOperation)encryptOrDecrypt;
 
 @end

@@ -41,7 +41,7 @@ FOUNDATION_EXPORT NSString *const AC;//读取主机温度
 FOUNDATION_EXPORT NSString *const C8;//取消学习
 FOUNDATION_EXPORT NSString *const DF;//发送红外码库指令
 
-FOUNDATION_EXPORT NSString *const codeEncryptKey;//上传从机
+FOUNDATION_EXPORT NSString *const codeEncryptKey;//加密密钥
 
 @interface Tools : NSObject
 

@@ -30,20 +30,11 @@ exit(-1);			\
 
 CCOptions _padding = kCCOptionPKCS7Padding;
 
-+ (NSString *)encryptString:(NSString *)plainSourceStringToEncrypt
-{
-	NSData *_secretData = [plainSourceStringToEncrypt dataUsingEncoding:NSASCIIStringEncoding];
-		
-	// You can use md5 to make sure key is 16 bits long
-	NSData *encryptedData = [self encrypt:_secretData];
-		
-	return [encryptedData base64EncodingWithLineLength:0];	
-}
-
+#pragma mark 解密字符串
 + (NSString *)decryptString:(NSString *)base64StringToDecrypt
 {
-	NSData *data = [StringEncryption decrypt:[NSData dataWithBase64EncodedString:base64StringToDecrypt]];
-	return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSData *data = [StringEncryption decrypt:[NSData dataWithBase64EncodedString:base64StringToDecrypt]];
+    return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 
 + (NSString *)decryptString:(NSString *)base64StringToDecrypt encoding:(NSStringEncoding)encoding
@@ -56,14 +47,25 @@ CCOptions _padding = kCCOptionPKCS7Padding;
     return [[NSString alloc] initWithData:data encoding:encoding];
 }
 
-+ (NSData *)encrypt:(NSData *)plainText
-{
-    return [self doCipher:plainText context:kCCEncrypt];
-}
-
 + (NSData *)decrypt:(NSData *)plainText
 {
     return [self doCipher:plainText context:kCCDecrypt];
+}
+
+#pragma mark 加密字符串
++ (NSString *)encryptString:(NSString *)plainSourceStringToEncrypt
+{
+    NSData *_secretData = [plainSourceStringToEncrypt dataUsingEncoding:NSASCIIStringEncoding];
+    
+    // You can use md5 to make sure key is 16 bits long
+    NSData *encryptedData = [self encrypt:_secretData];
+    
+    return [encryptedData base64EncodingWithLineLength:0];
+}
+
++ (NSData *)encrypt:(NSData *)plainText
+{
+    return [self doCipher:plainText context:kCCEncrypt];
 }
 
 + (NSData *)doCipher:(NSData *)plainText context:(CCOperation)encryptOrDecrypt

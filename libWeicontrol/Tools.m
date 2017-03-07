@@ -24,7 +24,7 @@ NSString *const AC = @"AC";//读取主机温度
 NSString *const C8 = @"C8";//取消学习
 NSString *const DF = @"DF";//发送红外码库指令
 
-NSString *const codeEncryptKey = @"w8lKEw3ADAX#0gA8";
+NSString *const codeEncryptKey = @"w8lKEw3ADAX#0gA8";//加密密钥
 
 @implementation Tools
 
@@ -189,7 +189,7 @@ NSString *const codeEncryptKey = @"w8lKEw3ADAX#0gA8";
     return str;
 }
 
-#pragma mark 加密字符串
+//加密字符串
 + (NSString *)encryptString:(NSString *)str
 {
     return [StringEncryption encryptString:str];
