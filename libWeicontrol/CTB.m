@@ -3927,6 +3927,22 @@ BOOL isZH()
     return desc;
 }
 
+- (NSString *)stringForFormat
+{
+    NSString *tempStr1 = [self stringByReplacingOccurrencesOfString:@"\\u" withString:@"\\U"];
+    NSString *tempStr2 = [tempStr1 stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+    NSString *tempStr3 = [[@"\"" stringByAppendingString:tempStr2] stringByAppendingString:@"\""];
+    NSData *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSError *error = nil;
+    NSString *str = [NSPropertyListSerialization propertyListWithData:tempData options:NSPropertyListImmutable format:NULL error:&error];
+    if (error) {
+        NSLog(@"format : %@",error.localizedDescription);
+    }
+    
+    return str;
+}
+
 //字符串转化成字典
 - (NSDictionary *)convertToDic
 {
@@ -4751,11 +4767,7 @@ long parseStrtol(NSString *str)
 
 - (NSString *)stringForFormat
 {
-    NSString *tempStr1 = [[self description] stringByReplacingOccurrencesOfString:@"\\u" withString:@"\\U"];
-    NSString *tempStr2 = [tempStr1 stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
-    NSString *tempStr3 = [[@"\"" stringByAppendingString:tempStr2] stringByAppendingString:@"\""];
-    NSData *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *str = [NSPropertyListSerialization propertyListWithData:tempData options:NSPropertyListImmutable format:NULL error:NULL];
+    NSString *str = [self.description stringForFormat];
     
     return str;
 }
@@ -5964,6 +5976,61 @@ long parseStrtol(NSString *str)
     return lblLeftView;
 }
 
+- (BOOL)textFieldShouldChangeInRange:(NSRange)range replaceString:(NSString *)string limit:(int)limit
+{
+    if (string.length == 0) return YES;
+    
+    [string length];
+    
+    NSInteger existedLength = self.text.length;
+    NSInteger selectedLength = range.length;
+    NSInteger replaceLength = string.length;
+    if (existedLength - selectedLength + replaceLength > limit) {
+        return NO;
+    }
+    
+    return YES;
+}
+
+- (BOOL)textFieldDidChangeToLimit:(int)limit
+{
+    NSString *content = self.text;
+    
+    if (content.countTheStr > limit) {
+        content = [content getCStringWithLen:limit];
+        self.text = content;
+        return NO;
+    }
+    
+    int MAX_STARWORDS_LENGTH = limit;
+    UITextField *textField = self;
+    NSString *toBeString = textField.text;
+    
+    //获取高亮部分
+    UITextRange *selectedRange = [textField markedTextRange];
+    UITextPosition *position = [textField positionFromPosition:selectedRange.start offset:0];
+    
+    // 没有高亮选择的字，则对已输入的文字进行字数统计和限制
+    if (!position)
+    {
+        if (toBeString.length > MAX_STARWORDS_LENGTH)
+        {
+            NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:MAX_STARWORDS_LENGTH];
+            if (rangeIndex.length == 1)
+            {
+                textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];
+            }
+            else
+            {
+                NSRange rangeRange = [toBeString rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, MAX_STARWORDS_LENGTH)];
+                textField.text = [toBeString substringWithRange:rangeRange];
+            }
+        }
+    }
+    
+    return YES;
+}
+
 @end
 
 #pragma mark - --------UICollectionView------------------------
@@ -6447,7 +6514,7 @@ long parseStrtol(NSString *str)
 - (NSString *)customDescription
 {
     if ([self isKindOfClass:[NSDictionary class]]) {
-        return [(NSDictionary *)self stringUsingASCIIEncoding];
+        return [(NSDictionary *)self stringForFormat];
     }
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     unsigned int propsCount;
@@ -6465,7 +6532,7 @@ long parseStrtol(NSString *str)
         
         [dic setObject:value forKey:propName];
     }
-    NSString *content = [dic stringUsingASCIIEncoding];
+    NSString *content = [dic stringForFormat];
     return content;
 }
 
@@ -6479,7 +6546,7 @@ long parseStrtol(NSString *str)
             [dicDes setObject:value forKey:key];
         }
     }
-    NSString *string = [dicDes stringUsingASCIIEncoding] ?: [NSString format:@"%@",dicDes];
+    NSString *string = [dicDes stringForFormat] ?: [NSString format:@"%@",dicDes];
     return string;
 }
 

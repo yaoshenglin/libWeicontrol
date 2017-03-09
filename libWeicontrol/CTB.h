@@ -583,6 +583,7 @@ BOOL isZH();//语言为中文
 - (NSData *)dataByHexString;
 - (NSString *)uppercaseByHexString;
 - (NSString *)stringUsingASCIIEncoding;
+- (NSString *)stringForFormat;
 //16进制字符串转2进制字符串
 - (NSString *)stringByHexString;
 - (NSString *)realStringByHexString;
@@ -976,6 +977,9 @@ BOOL isZH();//语言为中文
 
 - (void)setAlwaysLeftView:(UIView *)leftView;
 - (UILabel *)setAlwaysLeftViewWithSize:(CGSize)size text:(NSString *)text;
+
+- (BOOL)textFieldShouldChangeInRange:(NSRange)range replaceString:(NSString *)string limit:(int)limit;
+- (BOOL)textFieldDidChangeToLimit:(int)limit;
 
 @end
 
