@@ -48,7 +48,7 @@
     //固件更新使用--------------------------------end
 }
 
-@synthesize callback;
+@synthesize callback,isDebugLog;
 
 #pragma mark 初始化
 - (instancetype)init
@@ -133,7 +133,7 @@
 - (void)onDiscoverPeripheral:(CBPeripheral *)peripheral adData:(NSDictionary<NSString *,id> *)adData RSSI:(NSNumber *)RSSI
 {
     if (isDebugLog) {
-        NSLog(@"扫描到设备 => UUID:%@ adData:%@ RSSI:%@",peripheral.identifier.UUIDString, adData, RSSI);
+        //NSLog(@"扫描到设备 => UUID:%@ adData:%@ RSSI:%@",peripheral.identifier.UUIDString, adData, RSSI);
     }
     
     NSString *deviceName = peripheral.name ?: [adData objectForKey:CBAdvertisementDataLocalNameKey];
@@ -142,7 +142,7 @@
     
     if (isDebugLog) {
         if (deviceName && ![listDeviceName containsObject:deviceName]) {
-            NSString *log = [NSString stringWithFormat:@"扫描到设备 => 名称:%@  RSSI:%@ adData:%@",deviceName,RSSI,adData];
+            NSString *log = [NSString stringWithFormat:@"扫描到设备 => 名称:%@  RSSI:%@ adData:%@",deviceName,RSSI,[adData stringForFormat]];
             NSLog(@"%@",log);
             [listDeviceName addObject:deviceName];
         }

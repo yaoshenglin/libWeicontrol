@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define Device_Name            @"iFace-Lock"//指定设备名称进行连接（QLove,iFace-Lock）
+#define Device_Name            @"CR-Lock"//指定设备名称进行连接（QLove,iFace-Lock）
 #define Device_Info_Server     @"180A"//设备信息通用UUID（无需配置）
 #define Device_Battery_Server  @"180F"//电池电量信息通用UUID（无需配置）
 #define RxTx_Send_Server       @"FFF6"//可写服务UUID，(FFF6,1000)
@@ -43,6 +43,7 @@
 @interface BLEAutoConnect : NSObject
 
 @property (nonatomic,weak) id callback;//回调代理
+@property (nonatomic) BOOL isDebugLog;//配置是否调试显示打印日志信息
 
 - (id)initWithDelegate:(id)delegate;
 

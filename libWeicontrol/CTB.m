@@ -4372,8 +4372,17 @@ long parseStrtol(NSString *str)
 
 - (id)unarchiveData
 {
-    NSData *data = [self copy];
-    id obj = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    if (iPhone <= 9) {
+        id obj;
+        @try {
+            obj = [NSKeyedUnarchiver unarchiveObjectWithData:self];
+        } @catch (NSException *exception) {
+            return nil;
+        } @finally {
+            return obj;
+        }
+    }
+    id obj = [NSKeyedUnarchiver unarchiveObjectWithData:self];
     return obj;
 }
 
@@ -6002,7 +6011,6 @@ long parseStrtol(NSString *str)
         return NO;
     }
     
-    int MAX_STARWORDS_LENGTH = limit;
     UITextField *textField = self;
     NSString *toBeString = textField.text;
     
@@ -6013,16 +6021,16 @@ long parseStrtol(NSString *str)
     // 没有高亮选择的字，则对已输入的文字进行字数统计和限制
     if (!position)
     {
-        if (toBeString.length > MAX_STARWORDS_LENGTH)
+        if (toBeString.length > limit)
         {
-            NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:MAX_STARWORDS_LENGTH];
+            NSRange rangeIndex = [toBeString rangeOfComposedCharacterSequenceAtIndex:limit];
             if (rangeIndex.length == 1)
             {
-                textField.text = [toBeString substringToIndex:MAX_STARWORDS_LENGTH];
+                textField.text = [toBeString substringToIndex:limit];
             }
             else
             {
-                NSRange rangeRange = [toBeString rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, MAX_STARWORDS_LENGTH)];
+                NSRange rangeRange = [toBeString rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, limit)];
                 textField.text = [toBeString substringWithRange:rangeRange];
             }
         }
