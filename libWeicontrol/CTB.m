@@ -81,11 +81,9 @@ id getController(NSString *identifier,NSString *title)
     UIViewController *result = [[aClass alloc] init];
     if ([result isKindOfClass:[UIViewController class]]) {
         return result;
-    }else{
-        return nil;
-        
-//        __unused UIControl *control = nil;
     }
+    
+    return nil;
 }
 
 + (id)NSClassFromString:(NSString *)className
@@ -6361,6 +6359,14 @@ long parseStrtol(NSString *str)
 - (void)duration:(NSTimeInterval)dur action:(SEL)action with:(id)anArgument
 {
     [self performSelector:action withObject:anArgument afterDelay:dur];
+}
+
+- (void)perform:(SEL)aSelector withObject:(id)object1 withObject:(id)object2
+{
+    //[self performSelector:aSelector withObject:nil withObject:nil];
+    IMP lsa = [self methodForSelector:aSelector];
+    id (*func)(id, SEL, id, id) = (void *)lsa;
+    func(self, aSelector, object1, object2);
 }
 
 - (NSData *)archivedData

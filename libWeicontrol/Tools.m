@@ -7,7 +7,6 @@
 //
 
 #import "Tools.h"
-#import "StringEncryption.h"
 
 //定义指针常量
 NSString *const A0 = @"A0";//开关关
@@ -158,50 +157,61 @@ NSString *const codeEncryptKey = @"w8lKEw3ADAX#0gA8";//加密密钥
     return (NSInteger)(from + (arc4random() % (to - from + 1)));
 }
 
-#pragma mark - --------解密字符串
-+ (NSString *)decryptString:(NSString *)str
++ (NSString *)hexStringWithData:(NSData *)data
 {
-    return [StringEncryption decryptString:str];
-}
-
-+ (NSString *)decryptString:(NSString *)str encoding:(NSStringEncoding)encoding
-{
-    return [StringEncryption decryptString:str encoding:encoding];
-}
-
-+ (NSString *)decryptFrom:(NSString *)str
-{
-    NSString *Separate = @"/App/";
-    NSArray *list = [str componentsSeparatedByString:Separate];
-    if ([list count] == 2) {
-        NSString *str = [list objectAtIndex:1];
-        
-        str = [str stringByReplacingOccurrencesOfString:@"_" withString:@"+"];
-        str = [str stringByReplacingOccurrencesOfString:@"~" withString:@"+"];
-        str = [str stringByReplacingOccurrencesOfString:@"!" withString:@"/"];
-        str = [str stringByReplacingOccurrencesOfString:@"|" withString:@"/"];
-        NSString *content = [Tools decryptString:str];
-        if (content.length > 0) {
-            return content;
-        }
-    }
+    NSString *dataStr = data.description;
+    dataStr = [dataStr stringByReplacingOccurrencesOfString:@"<" withString:@""];//去掉'<'
+    dataStr = [dataStr stringByReplacingOccurrencesOfString:@">" withString:@""];//去掉'>'
+    dataStr = [dataStr stringByReplacingOccurrencesOfString:@" " withString:@""];//去掉空格
+    dataStr = [dataStr uppercaseString];//转为大写
     
-    return str;
+    return dataStr;
 }
+
+#pragma mark - --------解密字符串
+//+ (NSString *)decryptString:(NSString *)str
+//{
+//    return [StringEncryption decryptString:str];
+//}
+//
+//+ (NSString *)decryptString:(NSString *)str encoding:(NSStringEncoding)encoding
+//{
+//    return [StringEncryption decryptString:str encoding:encoding];
+//}
+//
+//+ (NSString *)decryptFrom:(NSString *)str
+//{
+//    NSString *Separate = @"/App/";
+//    NSArray *list = [str componentsSeparatedByString:Separate];
+//    if ([list count] == 2) {
+//        NSString *str = [list objectAtIndex:1];
+//        
+//        str = [str stringByReplacingOccurrencesOfString:@"_" withString:@"+"];
+//        str = [str stringByReplacingOccurrencesOfString:@"~" withString:@"+"];
+//        str = [str stringByReplacingOccurrencesOfString:@"!" withString:@"/"];
+//        str = [str stringByReplacingOccurrencesOfString:@"|" withString:@"/"];
+//        NSString *content = [Tools decryptString:str];
+//        if (content.length > 0) {
+//            return content;
+//        }
+//    }
+//    
+//    return str;
+//}
 
 //加密字符串
-+ (NSString *)encryptString:(NSString *)str
-{
-    return [StringEncryption encryptString:str];
-}
-
-+ (NSString *)encryptFrom:(NSString *)str
-{
-    NSString *string = [Tools encryptString:str];
-    string = [NSString format:@"https://api.weicontrol.cn/App/%@",string];
-    
-    return string;
-}
+//+ (NSString *)encryptString:(NSString *)str
+//{
+//    return [StringEncryption encryptString:str];
+//}
+//
+//+ (NSString *)encryptFrom:(NSString *)str
+//{
+//    NSString *string = [Tools encryptString:str];
+//    string = [NSString format:@"%@/App/%@",k_host,string];
+//    
+//    return string;
+//}
 
 #pragma mark 获取有效域名
 + (NSString *)getValidHostname:(NSString *)hostname
@@ -1582,6 +1592,74 @@ NSString *const codeEncryptKey = @"w8lKEw3ADAX#0gA8";//加密密钥
     Byte mCrc2 = Buf[length - 1];
     
     return (crc1 == mCrc1) && (crc2 == mCrc2);
+}
+
+@end
+
+#pragma mark - --------NSString------------------------
+@implementation NSString (Extend)
+
+#pragma mark 十六进制字符转data
+- (NSData *)dataWithHexString
+{
+    NSString *str = [self stringByReplacingOccurrencesOfString:@" " withString:@""];
+    char const *myBuffer = str.UTF8String;
+    NSInteger charCount = strlen(myBuffer);
+    if (charCount %2 != 0) {
+        return nil;
+    }
+    NSInteger byteCount = charCount/2;
+    uint8_t *bytes = malloc(byteCount);
+    for (int i=0; i<byteCount; i++) {
+        unsigned int value;
+        sscanf(myBuffer + i*2, "%2x",&value);
+        bytes[i] = value;
+    }
+    NSData *data = [NSData dataWithBytes:bytes length:byteCount];
+    return data;
+}
+
+@end
+
+@implementation NSData (Extend)
+#pragma mark NSData bytes转换成十六进制字符串
+- (NSString *)toHexString
+{
+    NSString *dataStr = self.description;
+    dataStr = [dataStr stringByReplacingOccurrencesOfString:@"<" withString:@""];//去掉'<'
+    dataStr = [dataStr stringByReplacingOccurrencesOfString:@">" withString:@""];//去掉'>'
+    dataStr = [dataStr stringByReplacingOccurrencesOfString:@" " withString:@""];//去掉空格
+    dataStr = [dataStr uppercaseString];//转为大写
+    
+    return dataStr;
+}
+
+- (NSData *)subdataWithRanges:(NSRange)range
+{
+    if (range.length > UINT_MAX) {
+        return nil;
+    }
+    else if (NSMaxRange(range) <= self.length) {
+        return [self subdataWithRange:range];
+    }
+    else if (self.length < range.location) {
+        return nil;
+    }
+    
+    NSInteger length = self.length - range.location;
+    range.length = length;
+    return [self subdataWithRange:range];
+}
+
+//十六进制转化成十进制
+- (long)parseIntWithRange:(NSRange)range
+{
+    long value = 0;
+    NSData *data = [self subdataWithRanges:range];
+    NSString *str = [data toHexString];
+    value = strtol([str UTF8String],nil,16);
+    //[self getBytes:&value range:NSMakeRange(0, data.length)];
+    return value;
 }
 
 @end

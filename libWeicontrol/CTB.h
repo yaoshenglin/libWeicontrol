@@ -1048,6 +1048,7 @@ BOOL isZH();//语言为中文
 
 - (void)duration:(NSTimeInterval)dur action:(SEL)action;
 - (void)duration:(NSTimeInterval)dur action:(SEL)action with:(id)anArgument;
+- (void)perform:(SEL)aSelector withObject:(id)object1 withObject:(id)object2;
 - (NSData *)archivedData;//存档数据
 - (BOOL)isBelongTo:(NSArray *)list;
 - (NSString *)className;//返回类名

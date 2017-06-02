@@ -60,25 +60,26 @@ FOUNDATION_EXPORT NSString *const codeEncryptKey;//加密密钥
 
 #pragma mark 生成随机数
 + (NSInteger)getRandomNumber:(NSInteger)from to:(NSInteger)to;
++ (NSString *)hexStringWithData:(NSData *)data;
 
 #pragma mark - --------解密字符串----------------
 //+ (NSString *)decryptString:(NSString *)str;
 //+ (NSString *)decryptString:(NSString *)str encoding:(NSStringEncoding)encoding;
-+ (NSString *)decryptFrom:(NSString *)str;
-+ (NSString *)encryptString:(NSString *)str;
-+ (NSString *)encryptFrom:(NSString *)str;
+//+ (NSString *)decryptFrom:(NSString *)str;
+//+ (NSString *)encryptString:(NSString *)str;
+//+ (NSString *)encryptFrom:(NSString *)str;
 
 #pragma mark 获取有效域名
 + (NSString *)getValidHostname:(NSString *)hostname;
 
 #pragma mark 获取主机ID（主机MAC地址去除冒号后的字符串）
-+ (NSString*)getHostMacID;
++ (NSString *)getHostMacID;
 
 #pragma mark 判断有没有配置主机
 + (BOOL)isConfiged;
 
 #pragma mark 构造读取主机ID指令
-+ (NSData*)makeReadControlData;
++ (NSData *)makeReadControlData;
 #pragma mark 构造广播主机ID指令
 + (NSData *)makeBroadcastData;
 
@@ -89,15 +90,15 @@ FOUNDATION_EXPORT NSString *const codeEncryptKey;//加密密钥
 + (NSData *)makeReadTempData;
 
 #pragma mark 构造从机读取状态指令
-+ (NSData*)makeSlaveReadData:(NSString*)host_mac slave_mac:(NSString*)slave_mac;
++ (NSData *)makeSlaveReadData:(NSString*)host_mac slave_mac:(NSString*)slave_mac;
 + (NSData *)makeSlaveReadData:(NSString*)host_mac slave_mac:(NSString*)slave_mac relay:(BOOL)isRelay slave2:(NSString *)slave2_mac;
 
 #pragma mark 构造心跳包回复指令
-+ (NSData*)makeReplyHeartData:(NSString*)host_mac;
++ (NSData *)makeReplyHeartData:(NSString*)host_mac;
 
 #pragma mark 构造从机开关指令
-+ (NSData*)makeSlaveActionData:(NSString*)host_mac slave:(NSString*)slave_mac onOpen:(BOOL)onOpen;
-+ (NSData*)makeSlaveActionData:(NSString*)host_mac slave:(NSString*)slave_mac onOpen:(BOOL)onOpen relay:(BOOL)isRelay slave2:(NSString *)slave2_mac;
++ (NSData *)makeSlaveActionData:(NSString*)host_mac slave:(NSString*)slave_mac onOpen:(BOOL)onOpen;
++ (NSData *)makeSlaveActionData:(NSString*)host_mac slave:(NSString*)slave_mac onOpen:(BOOL)onOpen relay:(BOOL)isRelay slave2:(NSString *)slave2_mac;
 
 + (NSString *)makeSwitchOrder:(NSString *)slave_mac relay:(BOOL)isRelay index:(int)index slave2:(NSString *)slave2_mac;
 //电动窗帘组合
@@ -139,10 +140,10 @@ FOUNDATION_EXPORT NSString *const codeEncryptKey;//加密密钥
 
 
 #pragma mark 构造升级主机指令前缀（不带校验）
-+ (NSData*)makeUpdateHostDataWithFix:(NSString*)host_mac;
++ (NSData *)makeUpdateHostDataWithFix:(NSString*)host_mac;
 
 #pragma mark 构造主机上传配置信息
-+ (NSData*)makeUploadConfig:(NSString*)ssid password:(NSString*)password serverip:(NSString*)serverip serverport:(UInt16)serverport;
++ (NSData *)makeUploadConfig:(NSString*)ssid password:(NSString*)password serverip:(NSString*)serverip serverport:(UInt16)serverport;
 
 #pragma mark 构造控制命令(未校验)
 + (NSData *)makeOrder:(NSString *)order hostMac:(NSString *)host_mac slaveMac:(NSString *)slave_mac;
@@ -154,7 +155,7 @@ FOUNDATION_EXPORT NSString *const codeEncryptKey;//加密密钥
 + (NSData *)makeInfraredOrder:(NSString *)order hostMac:(NSString *)host_mac;
 
 #pragma mark - -------构造智能匹配下发指令----------------
-+ (NSData*)makeSmartMatchData:(NSString*)host_mac;
++ (NSData *)makeSmartMatchData:(NSString*)host_mac;
 
 #pragma mark 构造红外指令
 + (NSData *)makeInfraredActionData:(NSString*)host_mac;
@@ -166,10 +167,10 @@ FOUNDATION_EXPORT NSString *const codeEncryptKey;//加密密钥
 + (NSData *)makeInfraredOrder:(NSString *)order host:(NSString *)host_mac keys:(NSData *)keys;
 
 #pragma mark 构造指纹蓝牙门锁配置指令(失败返回nil)
-+ (NSData*)makeDoorLockInstruction:(NSString*)frameType hostID:(NSString*)hostID deviceID:(NSString*)deviceID safeCode:(NSString*)safeCode extHexData:(NSString *)extHexData;
-+ (NSData*)makeDoorLockConfigParm:(NSString*)frameType deviceID:(NSString*)deviceID safeCode:(NSString*)safeCode hexType:(NSString*)hexType extHexData:(NSString *)extHexData;
++ (NSData *)makeDoorLockInstruction:(NSString*)frameType hostID:(NSString*)hostID deviceID:(NSString*)deviceID safeCode:(NSString*)safeCode extHexData:(NSString *)extHexData;
++ (NSData *)makeDoorLockConfigParm:(NSString*)frameType deviceID:(NSString*)deviceID safeCode:(NSString*)safeCode hexType:(NSString*)hexType extHexData:(NSString *)extHexData;
 
-+ (NSData*)makeDoorLockConfigParm:(NSString*)frameType
++ (NSData *)makeDoorLockConfigParm:(NSString*)frameType
                          deviceID:(NSString*)deviceID
                          safeCode:(NSString*)safeCode
                           hexType:(NSString*)hexType
@@ -198,14 +199,14 @@ FOUNDATION_EXPORT NSString *const codeEncryptKey;//加密密钥
 
 #pragma mark - --------华丽的分割线------------------------
 #pragma mark 获取crc校验码
-+ (NSData*)getCRC:(NSData*)dataBytes;
++ (NSData *)getCRC:(NSData*)dataBytes;
 + (NSData *)getCRCWith:(NSArray *)listData;
 
 #pragma mark 组合控制命令
 + (NSString *)makeControl:(NSString *)control value:(NSString *)value;
 + (NSString *)makeControl:(NSString *)control dataLen:(int)len value:(NSString *)value;
 #pragma mark 构造开门动作
-+ (NSData*)makeOpenDoorActionWithSN:(NSString*)SN parmsDoor:(NSString*)parmsDoor;
++ (NSData *)makeOpenDoorActionWithSN:(NSString*)SN parmsDoor:(NSString*)parmsDoor;
 + (NSData *)makeDoorCommandWith:(NSString *)SN pwd:(NSString *)pwd msg:(NSString *)msg control:(NSString *)control;
 //改IP和网关
 + (NSString *)makeControlWithIP:(NSString *)IP gateway:(NSString *)gateway;
@@ -273,9 +274,28 @@ FOUNDATION_EXPORT NSString *const codeEncryptKey;//加密密钥
 + (NSData *)deleteVerifyWith:(NSData *)data;
 
 #pragma mark 开关的CRC校验
-+ (NSData*)replaceCRCForSwitch:(NSData *)buffer;
++ (NSData *)replaceCRCForSwitch:(NSData *)buffer;
 #pragma mark 摇控CRC校验
-+ (NSData*)replaceCRCForInfrared:(NSData *)buffer;
++ (NSData *)replaceCRCForInfrared:(NSData *)buffer;
 + (BOOL)ValidCRCWithHost:(NSData *)data;
+
+@end
+
+#pragma mark 系统框架扩展
+#pragma mark - --------NSString------------------------
+@interface NSString (Extend)
+
+#pragma mark 十六进制字符转data
+- (NSData *)dataWithHexString;
+
+@end
+
+@interface NSData (Extend)
+#pragma mark NSData bytes转换成十六进制字符串
+- (NSString *)toHexString;
+
+- (NSData *)subdataWithRanges:(NSRange)range;//获取指定位置和长度data
+
+- (long)parseIntWithRange:(NSRange)range;//将指定位置和长度的十六进制数据转化为10进制
 
 @end

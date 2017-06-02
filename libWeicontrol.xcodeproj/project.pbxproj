@@ -8,12 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		141394411E45CFC20009B91F /* BLEAutoConnect.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 14C7FEEC1E45A78A00DB8DA8 /* BLEAutoConnect.h */; };
-		141394441E45CFE40009B91F /* BLEService.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 14C7FEEA1E45A78A00DB8DA8 /* BLEService.h */; };
 		141394451E45CFE90009B91F /* Tools.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 14C7FEF31E45A80300DB8DA8 /* Tools.h */; };
-		141394461E45CFEC0009B91F /* CTB.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 14C7FEF01E45A7BF00DB8DA8 /* CTB.h */; };
-		14C7FEEE1E45A78A00DB8DA8 /* BLEService.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C7FEEB1E45A78A00DB8DA8 /* BLEService.m */; };
 		14C7FEEF1E45A78A00DB8DA8 /* BLEAutoConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C7FEED1E45A78A00DB8DA8 /* BLEAutoConnect.m */; };
-		14C7FEF21E45A7BF00DB8DA8 /* CTB.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C7FEF11E45A7BF00DB8DA8 /* CTB.m */; };
 		14C7FEF51E45A80300DB8DA8 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C7FEF41E45A80300DB8DA8 /* Tools.m */; };
 /* End PBXBuildFile section */
 
@@ -24,9 +20,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				141394461E45CFEC0009B91F /* CTB.h in CopyFiles */,
 				141394451E45CFE90009B91F /* Tools.h in CopyFiles */,
-				141394441E45CFE40009B91F /* BLEService.h in CopyFiles */,
 				141394411E45CFC20009B91F /* BLEAutoConnect.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -35,18 +29,12 @@
 
 /* Begin PBXFileReference section */
 		14C7FEDE1E45A70500DB8DA8 /* liblibWeicontrol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibWeicontrol.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		14C7FEEA1E45A78A00DB8DA8 /* BLEService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEService.h; sourceTree = "<group>"; };
-		14C7FEEB1E45A78A00DB8DA8 /* BLEService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEService.m; sourceTree = "<group>"; };
 		14C7FEEC1E45A78A00DB8DA8 /* BLEAutoConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEAutoConnect.h; sourceTree = "<group>"; };
 		14C7FEED1E45A78A00DB8DA8 /* BLEAutoConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEAutoConnect.m; sourceTree = "<group>"; };
 		14C7FEF01E45A7BF00DB8DA8 /* CTB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTB.h; sourceTree = "<group>"; };
 		14C7FEF11E45A7BF00DB8DA8 /* CTB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTB.m; sourceTree = "<group>"; };
 		14C7FEF31E45A80300DB8DA8 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		14C7FEF41E45A80300DB8DA8 /* Tools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tools.m; sourceTree = "<group>"; };
-		14C7FEF71E45A9AE00DB8DA8 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
-		14C7FEF81E45A9AE00DB8DA8 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
-		14C7FEF91E45A9AE00DB8DA8 /* StringEncryption.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StringEncryption.h; sourceTree = "<group>"; };
-		14C7FEFA1E45A9AE00DB8DA8 /* StringEncryption.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StringEncryption.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,14 +71,8 @@
 				14C7FEF11E45A7BF00DB8DA8 /* CTB.m */,
 				14C7FEF31E45A80300DB8DA8 /* Tools.h */,
 				14C7FEF41E45A80300DB8DA8 /* Tools.m */,
-				14C7FEEA1E45A78A00DB8DA8 /* BLEService.h */,
-				14C7FEEB1E45A78A00DB8DA8 /* BLEService.m */,
 				14C7FEEC1E45A78A00DB8DA8 /* BLEAutoConnect.h */,
 				14C7FEED1E45A78A00DB8DA8 /* BLEAutoConnect.m */,
-				14C7FEF71E45A9AE00DB8DA8 /* NSData+Base64.h */,
-				14C7FEF81E45A9AE00DB8DA8 /* NSData+Base64.m */,
-				14C7FEF91E45A9AE00DB8DA8 /* StringEncryption.h */,
-				14C7FEFA1E45A9AE00DB8DA8 /* StringEncryption.m */,
 			);
 			path = libWeicontrol;
 			sourceTree = "<group>";
@@ -153,8 +135,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14C7FEF21E45A7BF00DB8DA8 /* CTB.m in Sources */,
-				14C7FEEE1E45A78A00DB8DA8 /* BLEService.m in Sources */,
 				14C7FEEF1E45A78A00DB8DA8 /* BLEAutoConnect.m in Sources */,
 				14C7FEF51E45A80300DB8DA8 /* Tools.m in Sources */,
 			);
