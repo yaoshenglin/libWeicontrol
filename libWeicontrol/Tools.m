@@ -23,7 +23,7 @@ NSString *const AC = @"AC";//读取主机温度
 NSString *const C8 = @"C8";//取消学习
 NSString *const DF = @"DF";//发送红外码库指令
 
-NSString *const codeEncryptKey = @"w8lKEw3ADAX#0gA8";//加密密钥
+NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 
 @implementation Tools
 
@@ -37,7 +37,7 @@ NSString *const codeEncryptKey = @"w8lKEw3ADAX#0gA8";//加密密钥
 #else
     DBFile = @"(内网).plist";//内网
 #endif
-    DBFile = [@"iFace" stringByAppendingString:DBFile];
+    DBFile = [AppIdentifier stringByAppendingString:DBFile];
     return DBFile;
 }
 
@@ -422,7 +422,7 @@ NSString *const codeEncryptKey = @"w8lKEw3ADAX#0gA8";//加密密钥
 #pragma mark - -------构造主机上传配置信息----------------
 + (NSData*)makeUploadConfig:(NSString*)ssid password:(NSString*)password serverip:(NSString*)serverip serverport:(UInt16)serverport
 {
-    BOOL isAuto = YES;
+    BOOL isAuto = AutoType;
     NSString *IP = @"192.168.11.226";
     NSString *CMD_UploadConfig = [NSString stringWithFormat:@"Cmd=WIFIConfig\\%@\\%@\\auto\\%d\\%@\\255.255.255.0\\192.168.11.1\\114.114.114.114\\%@\\%d\\",ssid,password,isAuto,IP,serverip,serverport];
     

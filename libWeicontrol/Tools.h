@@ -6,6 +6,10 @@
 //  Copyright © 2014年 weicontrol. All rights reserved.
 //
 
+#define kEncryptKey @"w8lKEw3ADAX#0gA8" // 加密用的key(二维码)
+#define AppIdentifier @"iFace"      //app标识
+#define AutoType (int)1                 //(1:自动,0:手动)
+
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import <AudioToolbox/AudioToolbox.h>
