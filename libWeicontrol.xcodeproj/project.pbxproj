@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		141394411E45CFC20009B91F /* BLEAutoConnect.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 14C7FEEC1E45A78A00DB8DA8 /* BLEAutoConnect.h */; };
 		141394451E45CFE90009B91F /* Tools.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 14C7FEF31E45A80300DB8DA8 /* Tools.h */; };
+		14351EBB1EE2642100FCECF3 /* CTB.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C7FEF11E45A7BF00DB8DA8 /* CTB.m */; };
+		14351EBC1EE2642D00FCECF3 /* CTB.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 14C7FEF01E45A7BF00DB8DA8 /* CTB.h */; };
 		14C7FEEF1E45A78A00DB8DA8 /* BLEAutoConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C7FEED1E45A78A00DB8DA8 /* BLEAutoConnect.m */; };
 		14C7FEF51E45A80300DB8DA8 /* Tools.m in Sources */ = {isa = PBXBuildFile; fileRef = 14C7FEF41E45A80300DB8DA8 /* Tools.m */; };
 /* End PBXBuildFile section */
@@ -20,6 +22,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				14351EBC1EE2642D00FCECF3 /* CTB.h in CopyFiles */,
 				141394451E45CFE90009B91F /* Tools.h in CopyFiles */,
 				141394411E45CFC20009B91F /* BLEAutoConnect.h in CopyFiles */,
 			);
@@ -28,7 +31,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		14C7FEDE1E45A70500DB8DA8 /* liblibWeicontrol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibWeicontrol.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		14C7FEDE1E45A70500DB8DA8 /* libWeicontrol.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWeicontrol.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		14C7FEEC1E45A78A00DB8DA8 /* BLEAutoConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLEAutoConnect.h; sourceTree = "<group>"; };
 		14C7FEED1E45A78A00DB8DA8 /* BLEAutoConnect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLEAutoConnect.m; sourceTree = "<group>"; };
 		14C7FEF01E45A7BF00DB8DA8 /* CTB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTB.h; sourceTree = "<group>"; };
@@ -59,7 +62,7 @@
 		14C7FEDF1E45A70500DB8DA8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				14C7FEDE1E45A70500DB8DA8 /* liblibWeicontrol.a */,
+				14C7FEDE1E45A70500DB8DA8 /* libWeicontrol.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -94,7 +97,7 @@
 			);
 			name = libWeicontrol;
 			productName = libWeicontrol;
-			productReference = 14C7FEDE1E45A70500DB8DA8 /* liblibWeicontrol.a */;
+			productReference = 14C7FEDE1E45A70500DB8DA8 /* libWeicontrol.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -135,8 +138,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14C7FEEF1E45A78A00DB8DA8 /* BLEAutoConnect.m in Sources */,
+				14351EBB1EE2642100FCECF3 /* CTB.m in Sources */,
 				14C7FEF51E45A80300DB8DA8 /* Tools.m in Sources */,
+				14C7FEEF1E45A78A00DB8DA8 /* BLEAutoConnect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,7 +243,7 @@
 				DEVELOPMENT_TEAM = 24UPQ796CD;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Weicontrol;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -249,7 +253,7 @@
 			buildSettings = {
 				DEVELOPMENT_TEAM = 24UPQ796CD;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Weicontrol;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;

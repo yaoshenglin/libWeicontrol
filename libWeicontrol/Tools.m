@@ -123,8 +123,8 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 #ifdef Extranet
         obj = getUserData(key);//兼容旧版本
         if (obj) {
-            [Tools setUserData:obj key:key];
             removeObjectForKey(key);
+            [Tools setUserData:obj key:key];
         }
 #endif
     }
@@ -141,8 +141,8 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 #ifdef Extranet
         obj = getUserData(key);//兼容旧版本
         if (obj) {
-            [Tools setUserData:obj key:key];
             removeObjectForKey(key);
+            [Tools setUserData:obj key:key];
             return YES;
         }
 #endif
@@ -297,7 +297,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 
 + (NSData *)makeSlaveReadData:(NSString*)host_mac slave_mac:(NSString*)slave_mac relay:(BOOL)isRelay slave2:(NSString *)slave2_mac
 {
-    if (!host_mac) {
+    if (host_mac.length <= 0) {
         NSLog(@"主机ID为空！");
         host_mac = @"FFFFFFFFFFFF";
     }
@@ -314,7 +314,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 
 + (NSData *)makeSlaveReadData:(NSString*)host_mac slave_mac:(NSString*)slave_mac relay:(BOOL)isRelay index:(int)index slave2:(NSString *)slave2_mac
 {
-    if (!host_mac) {
+    if (host_mac.length <= 0) {
         NSLog(@"主机ID为空！");
         host_mac = @"FFFFFFFFFFFF";
     }
@@ -433,7 +433,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 
 + (NSData *)makeOrder:(NSString *)order hostMac:(NSString *)host_mac slaveMac:(NSString *)slave_mac
 {
-    if (!order || !host_mac) {
+    if (order.length <= 0 || host_mac.length <= 0) {
         return nil;
     }
     
@@ -460,7 +460,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 + (NSData *)makeLEDOrder:(NSString *)order hostMac:(NSString *)host_mac slaveMac:(NSString *)slave_mac verify:(Enum_VerifyType)verify typeString:(NSString *)typeString placeString:(NSString *)placeString LEDMac:(NSString *)LEDMacString
 {
     host_mac = host_mac ?: [Tools getHostMacID];
-    if (!placeString || [placeString isEqualToString:@""]){
+    if (placeString.length <= 0) {
         NSMutableString *string = [NSMutableString string];
         for (int i = 0; i<11; ++i) {
             [string appendString:@"00"];
@@ -479,7 +479,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
         wholeString = [NSString stringWithFormat:@"%@%@%@%@%@",order,host_mac,slave_mac,typeString,placeString];
     }
     
-    if (!order || !host_mac) {
+    if (order.length <= 0 || host_mac.length <= 0) {
         return nil;
     }
     NSData *data = [wholeString dataByHexString];
@@ -500,7 +500,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 + (NSString *)makeLEDCommandString:(NSString *)order hostMac:(NSString *)host_mac slaveMac:(NSString *)slave_mac verify:(Enum_VerifyType)verify typeString:(NSString *)typeString commandString:(NSString *)commandString LEDMac:(NSString *)LEDMacString
 {
     host_mac = host_mac ?: [Tools getHostMacID];
-    if (!commandString || [commandString isEqualToString:@""]){
+    if (commandString.length <= 0) {
         NSMutableString *string = [NSMutableString string];
         for (int i = 0; i<5; ++i) {
             [string appendString:@"00"];
@@ -549,7 +549,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
                                    position:(NSString *)positionString
 {
     host_mac = host_mac ?: [Tools getHostMacID];
-    if (!commandString || [commandString isEqualToString:@""]){
+    if (commandString.length <= 0) {
         NSMutableString *string = [NSMutableString string];
         for (int i = 0; i<5; ++i) {
             [string appendString:@"00"];
@@ -575,7 +575,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
         return nil;
     }
     
-    if (!order || !host_mac) {
+    if (order.length <= 0 || host_mac.length <= 0) {
         return nil;
     }
     NSData *data = [wholeString dataByHexString];
@@ -599,7 +599,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
                          LEDMac:(NSString *)LEDMacString
 {
     host_mac = host_mac ?: [Tools getHostMacID];
-    if (!commandString || [commandString isEqualToString:@""]){
+    if (commandString.length <= 0){
         NSMutableString *string = [NSMutableString string];
         for (int i = 0; i<5; ++i) {
             [string appendString:@"00"];
@@ -618,7 +618,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
         wholeString = [NSString stringWithFormat:@"%@%@%@000000%@%@000000",order,host_mac,slave_mac,typeString,commandString];
     }
     
-    if (!order || !host_mac) {
+    if (order.length <= 0 || host_mac.length <= 0) {
         return nil;
     }
     NSData *data = [wholeString dataByHexString];
@@ -691,7 +691,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
                          host:(NSString *)host_mac
                          keys:(NSData *)keys
 {
-    if (!order || !host_mac || !keys) return nil;
+    if (order.length <= 0 || host_mac.length <= 0 || keys.length <= 0) return nil;
     //数据结构 [TYPE][H1][H2][H3][H4][H5][H6][...DATA...]
     NSString *value = [NSString format:@"%@%@",order,host_mac];
     NSData *fix = [value dataByHexString];
@@ -710,7 +710,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
                         extHexData:(NSString*)extHexData
 {
     //数据结构 [Type][id3][id2][id1][id0][DKey2][DKey1][DKey0][TargetType][...EXT DATA...]
-    if (!frameType || !hostID || !deviceID) return nil;
+    if (frameType.length <= 0 || hostID.length <= 0 || deviceID.length <= 0) return nil;
     NSMutableString *formatBuf = [NSMutableString new];
     [formatBuf appendString:frameType];
     [formatBuf appendString:hostID];
@@ -746,8 +746,8 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
                        extHexData:(NSString *)extHexData
 {
     //数据结构 [Type][id3][id2][id1][id0][DKey2][DKey1][DKey0][TargetType][...EXT DATA...]
-    if (!frameType || !safeCode || !deviceID) return nil;
-    if (!hexType) {
+    if (frameType.length <= 0 || safeCode.length <= 0 || deviceID.length <= 0) return nil;
+    if (hexType.length <= 0) {
         hexType = @"0";
     }
     NSMutableString *formatBuf = [NSMutableString new];
@@ -782,8 +782,8 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
                         userIndex:(NSInteger)userIndex
 {
     //数据结构 [Type][id3][id2][id1][id0][DKey2][DKey1][DKey0][TargetType][...EXT DATA...]
-    if (!frameType || !safeCode || !deviceID) return nil;
-    if (!hexType) {
+    if (frameType.length <= 0 || safeCode.length <= 0 || deviceID.length <= 0) return nil;
+    if (hexType.length <= 0) {
         hexType = @"0";
     }
     NSMutableString *formatBuf = [NSMutableString new];
@@ -835,8 +835,8 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
                             action:(NSInteger)action
                                way:(NSInteger)way {
     
-    if (!doorLockCP || !deviceID) return nil;
-    if (!type) {
+    if (doorLockCP.length <= 0 || deviceID.length <= 0) return nil;
+    if (type.length <= 0) {
         type = @"00";
     }
     NSMutableString *formatBuf = [NSMutableString new];
@@ -880,8 +880,8 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
                          userIndex:(NSInteger)userIndex
                               flag:(NSInteger)flag {
     
-    if (!doorLockCP || !deviceID) return nil;
-    if (!type) {
+    if (doorLockCP.length <= 0 || deviceID.length <= 0) return nil;
+    if (type.length <= 0) {
         type = @"00";
     }
     NSMutableString *formatBuf = [NSMutableString new];
@@ -1092,7 +1092,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 {
     IP = [IP getHex];
     gateway = [gateway getHex];
-    if (!IP || !gateway) return nil;
+    if (IP.length <= 0 || gateway.length <= 0) return nil;
     
     NSString *value = [NSString format:@"001806100004%@ffffff00%@0000000000000000021f401fa5233201020304007777772e313233343536373839302e636e00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",IP,gateway];
     NSString *control = [Tools makeControl:@"010601" dataLen:137 value:value];
@@ -1141,7 +1141,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 {
     static SystemSoundID shake_sound_male_id = 0;
     NSString *path = [[NSBundle mainBundle] pathForResource:pathName ofType:type];
-    if (path) {
+    if (path.length > 0) {
         //注册声音到系统
         AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path],&shake_sound_male_id);
         AudioServicesPlaySystemSound(shake_sound_male_id);
@@ -1151,7 +1151,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 + (void)createPlaySound:(NSString *)name ofType:(NSString *)type soundID:(SystemSoundID *)inSystemSoundID
 {
     NSString *path = [[NSBundle mainBundle] pathForResource:name ofType:type];
-    if (path) {
+    if (path.length > 0) {
         //注册声音到系统
         AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path],inSystemSoundID);
     }
@@ -1297,23 +1297,14 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 }
 
 #pragma mark - -------判断文件是否存在----------------
-+ (BOOL)fileExist:(NSString *)fileName {
-    
-    if(!fileName || fileName == nil || [fileName length]<=0)
++ (BOOL)fileExist:(NSString *)fileName
+{
+    if(fileName.length <= 0)
         return NO;
     
     NSString *filePath = [Tools getFilePath:fileName];
     NSFileManager* fileManager = [NSFileManager defaultManager];
     return [fileManager fileExistsAtPath:filePath];
-}
-
-+ (BOOL)pathExist:(NSString *)path
-{
-    if(!path || [path length]<=0)
-        return NO;
-    
-    NSFileManager* fileManager = [NSFileManager defaultManager];
-    return [fileManager fileExistsAtPath:path];
 }
 
 + (void)PathExistsAtPath:(NSString *)Path
@@ -1334,7 +1325,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 
 + (NSString *)getNameWithUrl:(NSString *)url
 {
-    if (url.length<=0) {
+    if (url.length <= 0) {
         return NULL;
     }
     NSString *name = [url lastPathComponent];
@@ -1345,7 +1336,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 + (UIImage *)imageFromDocumentFileName:(NSString *)fileName
 {
     
-    if (!fileName) {
+    if (fileName.length <= 0) {
         return nil;
     }
     
@@ -1361,7 +1352,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 + (void)saveDataToFile:(NSData *)data fileName:(NSString *)fileName
 {
     
-    if(fileName == nil || [fileName length]<=0)
+    if(fileName.length <= 0)
         return;
     
     NSString *filePath = [Tools getFilePath:fileName];
@@ -1414,7 +1405,7 @@ NSString *const codeEncryptKey = kEncryptKey;//加密密钥
 #pragma mark - -------字符转日期----------------
 + (NSDate *)dateFromString:(NSString *)str withDateFormater:(NSString *)formater
 {
-    if (!formater) {
+    if (formater.length <= 0) {
         formater = @"yyyy-MM-dd HH:mm:ss";
     }
     NSString *strDate = [str stringByReplacingOccurrencesOfString:@"T" withString:@" "];

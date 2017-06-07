@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "14C7FEDD1E45A70500DB8DA8"
-               BuildableName = "liblibWeicontrol.a"
+               BuildableName = "libWeicontrol.a"
                BlueprintName = "libWeicontrol"
                ReferencedContainer = "container:libWeicontrol.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "14C7FEDD1E45A70500DB8DA8"
-            BuildableName = "liblibWeicontrol.a"
+            BuildableName = "libWeicontrol.a"
             BlueprintName = "libWeicontrol"
             ReferencedContainer = "container:libWeicontrol.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "14C7FEDD1E45A70500DB8DA8"
-            BuildableName = "liblibWeicontrol.a"
+            BuildableName = "libWeicontrol.a"
             BlueprintName = "libWeicontrol"
             ReferencedContainer = "container:libWeicontrol.xcodeproj">
          </BuildableReference>

@@ -246,7 +246,6 @@ FOUNDATION_EXPORT NSString *const codeEncryptKey;//加密密钥
 
 #pragma mark 判断文件是否存在
 + (BOOL)fileExist:(NSString *)fileName;
-+ (BOOL)pathExist:(NSString *)path;
 
 + (void)PathExistsAtPath:(NSString *)Path;
 + (NSString *)getFileName:(NSString *)path;
